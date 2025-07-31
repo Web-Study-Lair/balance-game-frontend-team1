@@ -1,7 +1,7 @@
-import { Game } from "./types/game.type";
-import { Choice } from "./types/choice.type";
+import { Game } from "../types/game.type";
+import { Choice } from "../types/choice.type";
 
-export function BalanceGameChoiceBox(props: Choice) {
+export function GameChoiceBox(props: Choice) {
   const { imageUrl, description } = props;
   return (
     // TODO: onClick 이벤트 구현
@@ -12,14 +12,14 @@ export function BalanceGameChoiceBox(props: Choice) {
   );
 }
 
-export function BalanceGame(props: Game) {
+export function GamePlay(props: Game) {
   const { title, choices } = props;
   return (
-    <div className="BalanceGame">
+    <div className="BalanceGamePlay">
       <h1 className="BalanceGameTitle">{title}</h1>
       <div>
         {choices.map((choice) => (
-          <BalanceGameChoiceBox key={choice.id} {...choice} />
+          <GameChoiceBox key={choice.id} {...choice} />
         ))}
       </div>
     </div>
