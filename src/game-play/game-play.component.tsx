@@ -1,7 +1,7 @@
-import { BalanceGameBalance } from "../type/balance-game-balance.type";
-import { BalanceGameChoice } from "../type/balance-game-choice.type";
+import { Game } from "../types/game.type";
+import { Choice } from "../types/choice.type";
 
-export function GameChoiceBox(props: BalanceGameChoice) {
+export function GameChoiceBox(props: Choice) {
   const { imageUrl, description } = props;
   return (
     // TODO: onClick 이벤트 구현
@@ -12,7 +12,7 @@ export function GameChoiceBox(props: BalanceGameChoice) {
   );
 }
 
-export function GamePlay(props: BalanceGameBalance) {
+export function GamePlay(props: Game) {
   const { title, choices } = props;
   return (
     <div className="BalanceGamePlay">
