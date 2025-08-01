@@ -1,19 +1,17 @@
 import { Choice } from "../types/choice.type";
 import { Game } from "../types/game.type";
-import viteImg from "/public/vite.svg";
-import noImagePlaceholderImg from "/public/no-image-placeholder.svg";
 
 export function getPlaceholdGameData(): Game {
   const choices = [
     new Choice({
       id: 0,
       description: "placeholder 1",
-      imageUrl: noImagePlaceholderImg,
+      imageUrl: "/no-image-placeholder.svg",
     }),
     new Choice({
       id: 0,
       description: "placeholder 2",
-      imageUrl: noImagePlaceholderImg,
+      imageUrl: "/no-image-placeholder.svg",
     }),
   ];
   return new Game({
@@ -29,12 +27,12 @@ function getExampleGameData(gameId: string): Promise<Game> {
     new Choice({
       id: 1,
       description: "예시 선택지 1",
-      imageUrl: viteImg,
+      imageUrl: "/public/vite.svg",
     }),
     new Choice({
       id: 2,
       description: "예시 선택지 2",
-      imageUrl: viteImg,
+      imageUrl: "/public/vite.svg",
     }),
   ];
   const game = new Game({
