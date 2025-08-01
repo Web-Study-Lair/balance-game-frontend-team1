@@ -1,6 +1,28 @@
 import { Choice } from "../types/choice.type";
 import { Game } from "../types/game.type";
 import viteImg from "/public/vite.svg";
+import noImagePlaceholderImg from "/public/no-image-placeholder.svg";
+
+export function getPlaceholdGameData(): Game {
+  const choices = [
+    new Choice({
+      id: 0,
+      description: "placeholder 1",
+      imageUrl: noImagePlaceholderImg,
+    }),
+    new Choice({
+      id: 0,
+      description: "placeholder 2",
+      imageUrl: noImagePlaceholderImg,
+    }),
+  ];
+  return new Game({
+    id: 0,
+    title: `placeholder`,
+    isActive: false,
+    choices,
+  });
+}
 
 function getExampleGameData(gameId: string): Promise<Game> {
   const choices = [
