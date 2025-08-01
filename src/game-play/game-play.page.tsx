@@ -17,7 +17,6 @@ export function GamePlayPage() {
   }, [gameId]);
   return (
     <>
-      <h1>밸런스 게임 페이지</h1>
       <div>
         <GamePlay key={gameId} {...game} />
       </div>
