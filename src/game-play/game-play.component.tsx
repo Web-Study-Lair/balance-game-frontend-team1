@@ -17,7 +17,7 @@ export function GamePlay(props: Game) {
   return (
     <div className="BalanceGamePlay">
       <h2 className="BalanceGameTitle">{title}</h2>
-      <div>
+      <div className="BalanceGameChoiceBoxes">
         {choices.map((choice) => (
           <GameChoiceBox key={choice.id} {...choice} />
         ))}

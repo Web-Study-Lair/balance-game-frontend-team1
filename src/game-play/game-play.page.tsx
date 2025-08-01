@@ -1,3 +1,4 @@
+import "./game-play.css";
 import { useParams } from "react-router-dom";
 import { getGameData, getPlaceholdGameData } from "./game-play.util";
 import { useEffect, useState } from "react";

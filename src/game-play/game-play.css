@@ -1,0 +1,27 @@
+.BalanceGamePlay {
+  display: flex;
+  flex-direction: column;
+}
+
+.BalanceGameChoiceBoxes {
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+}
+
+.BalanceGameChoiceBox {
+  width: 480px;
+  padding: 12px;
+  border: 1px solid #bbb;
+  margin: 4px;
+}
+
+.BalanceGameChoiceBoxImage {
+  max-width: 420px;
+  max-height: 420px;
+}
+
+.BalanceGameChoiceBoxDescription {
+  margin: 8px 4px 4px 4px;
+  font-size: 24px;
+}
