@@ -5,7 +5,7 @@ import { chooseChoice } from "./game-play.util";
 export function GameChoiceBox(props: Choice & { gameId: number }) {
   const { gameId, id, imageUrl, description } = props;
   return (
-    // TODO: onClick 이벤트 구현
+    // TODO: onClick 이벤트 이후 결과 출력 UI 구현
     <div
       className="BalanceGameChoiceBox"
       onClick={() => chooseChoice(gameId, id)}
