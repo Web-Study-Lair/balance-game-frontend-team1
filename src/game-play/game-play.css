@@ -26,3 +26,8 @@
   margin: 8px 4px 4px 4px;
   font-size: 1.5em;
 }
+
+.BalanceGameResultText {
+  font-size: 2em;
+  color: #fff;
+}

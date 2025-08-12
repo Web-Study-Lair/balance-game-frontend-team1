@@ -1,26 +1,14 @@
 import { Game } from "../types/game.type";
 import { Choice } from "../types/choice.type";
 import { chooseChoice } from "./game-play.util";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { GameResult } from "../types/game-result.type";
 
-export function GameChoiceBox(
-  props: Choice & {
-    gameId: number;
-    isGameFinished: boolean;
-    setIsGameFinished: React.Dispatch<React.SetStateAction<boolean>>;
-  }
-) {
-  const {
-    gameId,
-    id,
-    imageUrl,
-    description,
-    isGameFinished,
-    setIsGameFinished,
-  } = props;
-
-  const dimmedLayer = (
+function GameChoiceDimmedLayer(props: GameResult) {
+  const { count, total } = props;
+  return (
     <div
+      className="BalanceGameChoiceDimmedLayer"
       style={{
         position: "absolute",
         top: 0,
@@ -30,8 +18,37 @@ export function GameChoiceBox(
         background: "rgba(0, 0, 0, 0.5)",
         zIndex: 10,
       }}
-    />
+    >
+      <p className="BalanceGameResultText">
+        {count} 표<br />({((count * 100) / total || 0).toFixed(2)} %)
+      </p>
+    </div>
   );
+}
+
+export function GameChoiceBox(
+  props: Choice & {
+    gameId: number;
+    isGameFinished: boolean;
+    setIsGameFinished: React.Dispatch<React.SetStateAction<boolean>>;
+    gameResults: GameResult[];
+    setGameResults: React.Dispatch<React.SetStateAction<GameResult[]>>;
+  }
+) {
+  const {
+    gameId,
+    id,
+    imageUrl,
+    description,
+    isGameFinished,
+    setIsGameFinished,
+    gameResults,
+    setGameResults,
+  } = props;
+
+  const currentChoiceResult = useMemo(() => {
+    return gameResults.find((result) => result.id === id);
+  }, [gameResults]);
 
   return (
     <div
@@ -42,16 +59,19 @@ export function GameChoiceBox(
       }}
     >
       <div
-        onClick={() => {
+        onClick={async () => {
           if (!isGameFinished) {
-            chooseChoice(gameId, id);
+            const results = await chooseChoice(gameId, id);
+            setGameResults(results);
             setIsGameFinished(true);
           }
         }}
       >
         <img className="BalanceGameChoiceBoxImage" src={imageUrl} />
         <p className="BalanceGameChoiceBoxDescription">{description}</p>
-        {isGameFinished ? dimmedLayer : null}
+        {isGameFinished && currentChoiceResult ? (
+          <GameChoiceDimmedLayer {...currentChoiceResult} />
+        ) : null}
       </div>
     </div>
   );
@@ -60,6 +80,7 @@ export function GameChoiceBox(
 export function GamePlay(props: Game) {
   const { id, title, choices } = props;
   const [isGameFinished, setIsGameFinished] = useState(false);
+  const [gameResults, setGameResults] = useState<GameResult[]>([]);
   return (
     <div className="BalanceGamePlay">
       <h1 className="BalanceGameTitle">{title}</h1>
@@ -70,6 +91,8 @@ export function GamePlay(props: Game) {
             gameId={id}
             isGameFinished={isGameFinished}
             setIsGameFinished={setIsGameFinished}
+            gameResults={gameResults}
+            setGameResults={setGameResults}
             {...choice}
           />
         ))}
