@@ -14,7 +14,7 @@
   padding: 12px;
   border: 1px solid #bbb;
   margin: 4px;
-  cursor: pointer;
+  z-index: 1;
 }
 
 .BalanceGameChoiceBoxImage {
