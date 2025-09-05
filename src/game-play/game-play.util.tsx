@@ -1,4 +1,5 @@
 import { Choice } from "../types/choice.type";
+import { GameResult } from "../types/game-result.type";
 import { Game } from "../types/game.type";
 
 const MOCKUP_GAME_ID = 0;
@@ -80,11 +81,15 @@ function fetchVoteChoice(gameId: number, choiceId: number) {
   throw new Error("Not Implemented");
 }
 
-export async function chooseChoice(gameId: number, choiceId: number) {
+export async function chooseChoice(
+  gameId: number,
+  choiceId: number
+): Promise<GameResult[]> {
   const result = await fetchVoteChoice(gameId, choiceId);
-  // TODO: 추후 결과를 UI 상으로 노출하도록 구현
-  console.log(`밸런스 게임 ${gameId} 결과`);
-  result.results.forEach((choice) => {
-    console.log(`- ${choice.id}: ${choice.count} 회`);
-  });
+  const countTotal = result.results.reduce((sum, { count }) => sum + count, 0);
+  return result.results.map((choice) => ({
+    id: choice.id,
+    count: choice.count,
+    total: countTotal,
+  }));
 }
