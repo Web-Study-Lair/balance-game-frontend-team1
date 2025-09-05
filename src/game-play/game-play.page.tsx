@@ -10,7 +10,7 @@ export function GamePlayPage() {
   const [game, setGame] = useState<Game>(getPlaceholdGameData());
   useEffect(() => {
     const fetchData = async () => {
-      const game = await getGameData(Number(gameId) || 0);
+      const game = await getGameData(gameId || "");
       setGame(game);
     };
     fetchData();
