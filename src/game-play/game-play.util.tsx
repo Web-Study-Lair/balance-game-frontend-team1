@@ -1,9 +1,13 @@
 import { Choice } from "../types/choice.type";
 import { GameResult } from "../types/game-result.type";
 import { Game } from "../types/game.type";
+import { ConfigUtil } from "../utils/config.util";
+import { HttpUtil } from "../utils/http.util";
 
 const MOCKUP_GAME_ID = 0;
 const mockUpChoiceResult = new Map();
+const configUtil = new ConfigUtil();
+const httpUtil = new HttpUtil();
 
 export function getPlaceholdGameData(): Game {
   const choices = [
@@ -70,8 +74,17 @@ function getMockUpGameResult(choiceId: number) {
   };
 }
 
-export function getGameData(gameId: number): Promise<Game> {
-  return getMockUpGameData(gameId);
+export async function getGameData(gameId: string): Promise<Game> {
+  if (gameId === "random") {
+    const gameData = await httpUtil.get(
+      `${configUtil.BACKEND_SERVER_URL}/balance-game/random`
+    );
+    return new Game(gameData.data);
+  }
+  // 테스트용으로 목업 데이터 불러올 수 있게 함
+  const gameIdNum = Number(gameId) ?? 0;
+  if (gameIdNum === MOCKUP_GAME_ID) return getMockUpGameData(gameIdNum);
+  throw new Error("Not Implemented");
 }
 
 function fetchVoteChoice(gameId: number, choiceId: number) {
